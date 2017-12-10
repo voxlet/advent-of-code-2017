@@ -4,11 +4,12 @@
 (require '[boot.core :refer :all]                           ; IntelliJ "integration"
          '[boot.task.built-in :refer :all])
 
-(set-env! :resource-paths #{"resources" "src"}
-          :source-paths   #{"test"}
+(set-env! :resource-paths #{"src"}
           :dependencies   '[[org.clojure/clojure "RELEASE"]
                             [adzerk/boot-test "RELEASE" :scope "test"]
-                            [onetom/boot-lein-generate "0.1.3" :scope "test"]])
+                            [onetom/boot-lein-generate "0.1.3" :scope "test"]
+                            [org.clojure/math.combinatorics "0.1.4"]
+                            [aysylu/loom "1.0.0"]])
 
 (require 'boot.lein)
 (boot.lein/generate)

@@ -6,11 +6,20 @@
 (defn parse [input]
   (mapv #(Character/digit ^char % 10) (seq input)))
 
-(defn solve [digits]
-  (->> (partition 2 1 (subvec digits 0 1) digits)
-       (filter #(apply = %))
+(defn solve [pairs]
+  (->> (filter #(apply = %) pairs)
        (map first)
        (reduce +)))
 
+(defn solve-1 [digits]
+  (solve (partition 2 1 (subvec digits 0 1) digits)))
+
+(defn solve-2 [digits]
+  (solve (map-indexed (fn [i d]
+                        (let [n (count digits)]
+                          [d (digits (mod (+ i (int (/ n 2))) n))]))
+                      digits)))
+
 (comment
-  (solve (parse input)))
+  (solve-1 (parse input))
+  (solve-2 (parse input)))

@@ -11,5 +11,12 @@
 (defn valid-count [passphrases]
   (count (filter #(apply distinct? %) passphrases)))
 
+(defn sort-word [word]
+  (->> (sort (seq word))
+       (apply str)))
+
 (comment
-  (valid-count (parse input)))
+  (valid-count (parse input))
+  (->> (parse input)
+       (map #(mapv sort-word %))
+       (valid-count)))

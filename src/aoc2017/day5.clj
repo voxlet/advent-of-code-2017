@@ -12,12 +12,17 @@
   {:tape (update tape pos inc)
    :pos (+ pos (tape pos))})
 
-(defn steps [tape]
+(defn steps [jump tape]
   (->> (iterate jump {:tape tape :pos 0})
        (take-while (fn [{:keys [tape pos]}]
                      (and (not (neg? pos))
                           (< pos (count tape)))))
        (count)))
 
+(defn jump-2 [{:keys [tape pos]}]
+  {:tape (update tape pos #(if (< % 3) (inc %) (dec %)))
+   :pos (+ pos (tape pos))})
+
 (comment
-  (steps (parse input)))
+  (steps jump (parse input))
+  (steps jump-2 (parse input)))
